@@ -1,12 +1,13 @@
 #include "ledShow.h"
+#include "serialCommand.h"
 LedShow show;
+SerialCommand sc;
 void setup() {
-  show.setup();
+  sc.setBautRate(115200);  sc.setup();  show.setup();
 }
-
 void loop() {
-  show.setAction("flipflop");
-  show.show();
-  show.setAction("disco");
+  sc.read();
+  if(sc.modul=="led"&&sc.action=="flipflop") show.setAction("flipflop");
+  if(sc.modul=="led"&&sc.action=="disco") show.setAction("disco");
   show.show();
 }
